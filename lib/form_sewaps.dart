@@ -94,6 +94,14 @@ class _FormSewaState extends State<FormSewa> {
             padding: const EdgeInsets.only(
               top: 20,
             ),
+            //   child: TextField(
+            //   controller: company,
+            //   decoration: InputDecoration(
+            //       labelText: 'Company',
+            //       border: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(8),
+            //       )),
+            // ),
             child: DropdownButton(
               hint: Text('Jenis PS'),
               value: _company,
@@ -111,15 +119,8 @@ class _FormSewaState extends State<FormSewa> {
               },
             ),
           ),
-          //   child: TextField(
-          //     controller: company,
-          //     decoration: InputDecoration(
-          //         labelText: 'Company',
-          //         border: OutlineInputBorder(
-          //           borderRadius: BorderRadius.circular(8),
-          //         )),
-          //   ),
-          // ),
+            
+          
           Padding(
             padding: const EdgeInsets.only(top: 20),
             child: ElevatedButton(
@@ -164,6 +165,8 @@ class _FormSewaState extends State<FormSewa> {
 
                   print("Alert Kosong");
                   showAlertDialogKosong(context);
+                }else{
+                  upsertSewa();
                 }
                 // upsertSewa();
               },
