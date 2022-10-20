@@ -35,9 +35,13 @@ class _FormSewaState extends State<FormSewa> {
 
     email = TextEditingController(
         text: widget.sewa == null ? '' : widget.sewa!.email);
+    
+    _jenisPS = widget.sewa == null ? 'PS3' : widget.sewa!.jenisPS;
 
-    jenisPS = TextEditingController(
-        text: widget.sewa == null ? '' : widget.sewa!.jenisPS);
+    // jenisPS = TextEditingController(
+    //     text: widget.sewa == null ? '' : widget.sewa!.jenisPS);
+    
+    // print (widget.sewa?.toMap()) 
 
     super.initState();
   }
@@ -136,7 +140,7 @@ class _FormSewaState extends State<FormSewa> {
                 if (name!.text.isEmpty ||
                     noHP!.text.isEmpty ||
                     email!.text.isEmpty ||
-                    jenisPS!.text.isEmpty) {
+                    _jenisPS!.isEmpty) {
                   showAlertDialogKosong(BuildContext context) {
                     // Membuat widget untuk mengatur tombol
                     Widget okButton = TextButton(
@@ -184,7 +188,7 @@ class _FormSewaState extends State<FormSewa> {
         'nama': name!.text,
         'noHP': noHP!.text,
         'email': email!.text,
-        'jenisPS': jenisPS!.text
+        'jenisPS': _jenisPS,
       }));
       Navigator.pop(context, 'update');
     } else {
@@ -193,7 +197,7 @@ class _FormSewaState extends State<FormSewa> {
         nama: name!.text,
         noHP: noHP!.text,
         email: email!.text,
-        jenisPS: jenisPS!.text,
+        jenisPS: _jenisPS,
       ));
       Navigator.pop(context, 'save');
     }
