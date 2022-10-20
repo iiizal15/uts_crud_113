@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names
-
 import 'package:flutter/material.dart';
 import 'databaseSewa/dbsewa_helper.dart';
 import 'model/sewaps.dart';

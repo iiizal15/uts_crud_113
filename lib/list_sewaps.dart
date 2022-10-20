@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_function_literals_in_foreach_calls, non_constant_identifier_names, unused_element, unused_local_variable, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
 import 'form_sewaps.dart';
-
 import 'databaseSewa/dbsewa_helper.dart';
 import 'model/sewaps.dart';
 

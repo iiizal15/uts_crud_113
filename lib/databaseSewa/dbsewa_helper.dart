@@ -1,7 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
-
-//dbsewa_helper ini dibuat untuk
-// Membuat database, membuat tabel, proses insert, read, update dan delete pada data Sewa PS
+//dbsewa_helper ini dibuat untuk membuat database, membuat tabel, proses insert, read, update dan delete pada data Sewa PS
 
 import 'package:uts_crud_113/model/sewaps.dart';
 import 'package:sqflite/sqflite.dart';
