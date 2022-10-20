@@ -18,26 +18,26 @@ class _FormSewaState extends State<FormSewa> {
 
   TextEditingController? name;
   TextEditingController? lastName;
-  TextEditingController? mobileNo;
+  TextEditingController? noHP;
   TextEditingController? email;
-  TextEditingController? company;
+  TextEditingController? jenisPS;
 
-  String? _company;
-  List _companys = ["PS3", "PS4", "PS5"];
+  String? _jenisPS;
+  List _jenis = ["PS3", "PS4", "PS5"];
 
   @override
   void initState() {
     name = TextEditingController(
-        text: widget.sewa == null ? '' : widget.sewa!.name);
+        text: widget.sewa == null ? '' : widget.sewa!.nama);
 
-    mobileNo = TextEditingController(
-        text: widget.sewa == null ? '' : widget.sewa!.mobileNo);
+    noHP = TextEditingController(
+        text: widget.sewa == null ? '' : widget.sewa!.noHP);
 
     email = TextEditingController(
         text: widget.sewa == null ? '' : widget.sewa!.email);
 
-    company = TextEditingController(
-        text: widget.sewa == null ? '' : widget.sewa!.company);
+    jenisPS = TextEditingController(
+        text: widget.sewa == null ? '' : widget.sewa!.jenisPS);
 
     super.initState();
   }
@@ -69,7 +69,7 @@ class _FormSewaState extends State<FormSewa> {
               top: 20,
             ),
             child: TextField(
-              controller: mobileNo,
+              controller: noHP,
               decoration: InputDecoration(
                   labelText: 'No. HP',
                   border: OutlineInputBorder(
@@ -102,10 +102,11 @@ class _FormSewaState extends State<FormSewa> {
             //         borderRadius: BorderRadius.circular(8),
             //       )),
             // ),
+            // Membuat pilihan jenis PS yang akan dipilih
             child: DropdownButton(
               hint: Text('Jenis PS'),
-              value: _company,
-              items: _companys
+              value: _jenisPS,
+              items: _jenis
                   .map((value) => DropdownMenuItem(
                         value: value,
                         child: Text(value),
@@ -113,14 +114,12 @@ class _FormSewaState extends State<FormSewa> {
                   .toList(),
               onChanged: (value) {
                 setState(() {
-                  _company = value as String;
-                  company?.text = _company!;
+                  _jenisPS = value as String;
+                  jenisPS?.text = _jenisPS!;
                 });
               },
             ),
           ),
-            
-          
           Padding(
             padding: const EdgeInsets.only(top: 20),
             child: ElevatedButton(
@@ -135,18 +134,18 @@ class _FormSewaState extends State<FormSewa> {
                     ),
               onPressed: () {
                 if (name!.text.isEmpty ||
-                    mobileNo!.text.isEmpty ||
+                    noHP!.text.isEmpty ||
                     email!.text.isEmpty ||
-                    company!.text.isEmpty) {
+                    jenisPS!.text.isEmpty) {
                   showAlertDialogKosong(BuildContext context) {
-                    // set up the button
+                    // Membuat widget untuk mengatur tombol
                     Widget okButton = TextButton(
                       child: Text("OK"),
                       onPressed: () {
                         Navigator.pop(context);
                       },
                     );
-                    // set up the AlertDialog
+                    // Membuat dialog konfirmasi data jika kosong
                     AlertDialog alertKosong = AlertDialog(
                       title: Text("PERHATIAN!"),
                       content: Text("Ada Data Yang Kosong!"),
@@ -154,7 +153,7 @@ class _FormSewaState extends State<FormSewa> {
                         okButton,
                       ],
                     );
-                    // show the dialog
+                    // Untuk Menampilkan dialog data jika kosong
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -183,18 +182,18 @@ class _FormSewaState extends State<FormSewa> {
       await db.updateSewa(SewaPS.fromMap({
         'id': widget.sewa!.id,
         'nama': name!.text,
-        'nohp': mobileNo!.text,
+        'noHP': noHP!.text,
         'email': email!.text,
-        'company': company!.text
+        'jenisPS': jenisPS!.text
       }));
       Navigator.pop(context, 'update');
     } else {
-      //insert data Sewa PS
+      // Untuk tambah data Sewa PS
       await db.saveSewa(SewaPS(
-        name: name!.text,
-        mobileNo: mobileNo!.text,
+        nama: name!.text,
+        noHP: noHP!.text,
         email: email!.text,
-        company: company!.text,
+        jenisPS: jenisPS!.text,
       ));
       Navigator.pop(context, 'save');
     }

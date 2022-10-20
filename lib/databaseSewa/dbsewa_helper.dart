@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 //dbsewa_helper ini dibuat untuk
-//membuat database, membuat tabel, proses insert, read, update dan delete
+// Membuat database, membuat tabel, proses insert, read, update dan delete pada data Sewa PS
 
 import 'package:uts_crud_113/model/sewaps.dart';
 import 'package:sqflite/sqflite.dart';
@@ -12,18 +12,18 @@ class DbSewa {
   static final DbSewa _instance = DbSewa._internal();
   static Database? _database;
 
-  //inisialisasi beberapa variabel yang dibutuhkan
-  final String tableName = 'tableKontak';
+  // Untuk menginisialisasi beberapa variabel yang dibutuhkan
+  final String tableName = 'tableSewa';
   final String columnId = 'id';
-  final String columnName = 'name';
-  final String columnMobileNo = 'mobileNo';
+  final String columnNama = 'nama';
+  final String columnNoHP = 'noHP';
   final String columnEmail = 'email';
-  final String columnCompany = 'company';
+  final String columnJenisPS = 'jenisPS';
 
   DbSewa._internal();
   factory DbSewa() => _instance;
 
-  //cek apakah database ada
+  // Untuk mengecek apakah database ada atau tidak
   Future<Database?> get _db async {
     if (_database != null) {
       return _database;
@@ -35,48 +35,49 @@ class DbSewa {
   Future<Database?> _initDb() async {
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, 'sewaps.db');
+    await deleteDatabase(path);
 
-    return await openDatabase(path, version: 1, onCreate: _onCreate);
+    return await openDatabase(path, version: 2, onCreate: _onCreate);
   }
 
-  //membuat tabel dan field-fieldnya
+  // Untuk membuat tabel beserta field-fieldnya
   Future<void> _onCreate(Database db, int version) async {
     var sql = "CREATE TABLE $tableName($columnId INTEGER PRIMARY KEY, "
-        "$columnName TEXT,"
-        "$columnMobileNo TEXT,"
+        "$columnNama TEXT,"
+        "$columnNoHP TEXT,"
         "$columnEmail TEXT,"
-        "$columnCompany TEXT)";
+        "$columnJenisPS TEXT)";
     await db.execute(sql);
   }
 
-  //insert ke database
+  // Membuat fungsi tambah ke database
   Future<int?> saveSewa(SewaPS sewa) async {
     var dbClient = await _db;
     return await dbClient!.insert(tableName, sewa.toMap());
   }
 
-  //read database
+  // Mmebuat fungsi read  pada database
   Future<List?> getAllKontak() async {
     var dbClient = await _db;
     var result = await dbClient!.query(tableName, columns: [
       columnId,
-      columnName,
-      columnCompany,
-      columnMobileNo,
+      columnNama,
+      columnJenisPS,
+      columnNoHP,
       columnEmail
     ]);
 
     return result.toList();
   }
 
-  //update database
+  // Membuat fungsi untuk update pada database
   Future<int?> updateSewa(SewaPS sewa) async {
     var dbClient = await _db;
     return await dbClient!.update(tableName, sewa.toMap(),
         where: '$columnId = ?', whereArgs: [sewa.id]);
   }
 
-  //hapus database
+  // Membuat fungsi untuk hapus pada database
   Future<int?> deleteSewa(int id) async {
     var dbClient = await _db;
     return await dbClient!

@@ -19,7 +19,7 @@ class _ListSewaPageState extends State<ListSewaPage> {
 
   @override
   void initState() {
-    //menjalankan fungsi getallSewa saat pertama kali dimuat
+    // Menjalankan fungsi getallSewa saat pertama kali dimuat
     _getAllSewa();
     super.initState();
   }
@@ -44,7 +44,7 @@ class _ListSewaPageState extends State<ListSewaPage> {
                 //   Icons.person,
                 //   size: 50,
                 // ),
-                title: Text('${sewa.name}'),
+                title: Text('${sewa.nama}'),
                 subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,13 +59,13 @@ class _ListSewaPageState extends State<ListSewaPage> {
                       padding: const EdgeInsets.only(
                         top: 8,
                       ),
-                      child: Text("Phone: ${sewa.mobileNo}"),
+                      child: Text("No. HP: ${sewa.noHP}"),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 8,
                       ),
-                      child: Text("Company: ${sewa.company}"),
+                      child: Text("Jenis PS: ${sewa.jenisPS}"),
                     )
                   ],
                 ),
@@ -73,31 +73,31 @@ class _ListSewaPageState extends State<ListSewaPage> {
                   fit: BoxFit.fill,
                   child: Row(
                     children: [
-                      // button edit
+                      // Tombol untuk edit
                       IconButton(
                           onPressed: () {
                             _openFormEdit(sewa);
                           },
                           icon: Icon(Icons.edit)),
-                      // button hapus
+                      // Tombol untuk hapus
                       IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () {
-                          //membuat dialog konfirmasi hapus
+                          // Membuat dialog konfirmasi hapus
                           AlertDialog hapus = AlertDialog(
-                            title: Text("Information"),
+                            title: Text("PERHATIAN!"),
                             content: Container(
                               height: 100,
                               child: Column(
                                 children: [
                                   Text(
-                                      "Apakah ingin Menghapus Data ${sewa.name} ?")
+                                      "Apakah Yakin Untuk Menghapus Data ${sewa.nama} ?")
                                 ],
                               ),
                             ),
-                            //terdapat 2 button.
-                            //jika ya maka jalankan _deleteSewa() dan tutup dialog
-                            //jika tidak maka tutup dialog
+                            // Terdapat 2 tombol.
+                            // Jika ya maka jalankan _deleteSewa() dan tutup dialog
+                            // Jika tidak maka tutup dialog
                             actions: [
                               TextButton(
                                   onPressed: () {
@@ -123,7 +123,7 @@ class _ListSewaPageState extends State<ListSewaPage> {
               ),
             );
           }),
-      //membuat button mengapung di bagian bawah kanan layar
+      // Membuat tombol mengapung di bagian bawah kanan layar
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
@@ -133,25 +133,25 @@ class _ListSewaPageState extends State<ListSewaPage> {
     );
   }
 
-  //mengambil semua data Sewa
+  // Fungsi untuk mengambil semua data Sewa
   Future<void> _getAllSewa() async {
-    //list menampung data dari database
+    // list untuk menampung data dari database
     var list = await db.getAllKontak();
 
-    //ada perubahanan state
+    // ada perubahan state
     setState(() {
-      //hapus data pada listSewa
+      // Untuk hapus data pada listSewa
       listSewa.clear();
 
-      //lakukan perulangan pada variabel list
+      // lakukan perulangan pada variabel list
       list!.forEach((sewa) {
-        //masukan data ke listSewa
+        // Masukkan data ke listSewa
         listSewa.add(SewaPS.fromMap(sewa));
       });
     });
   }
 
-  //menghapus data Sewa
+  // Fungsi untuk menghapus data Sewa PS
   Future<void> _deleteSewa(SewaPS sewa, int position) async {
     await db.deleteSewa(sewa.id!);
     setState(() {
@@ -159,7 +159,7 @@ class _ListSewaPageState extends State<ListSewaPage> {
     });
   }
 
-  // membuka halaman tambah Sewa PS
+  // Fungsi untuk membuka halaman tambah Sewa PS
   Future<void> _openFormCreate() async {
     var result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => FormSewa()));
@@ -168,7 +168,7 @@ class _ListSewaPageState extends State<ListSewaPage> {
     }
   }
 
-  //membuka halaman edit Sewa PS
+  // Fungsi untuk membuka halaman edit Sewa PS
   Future<void> _openFormEdit(SewaPS sewa) async {
     var result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => FormSewa(sewa: sewa)));
